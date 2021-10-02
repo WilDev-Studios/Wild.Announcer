@@ -1,0 +1,6 @@
+Interval: 300 # Seconds between each announcement - Must be an int value
+Announcements:
+  - URL: my.example.one.url # URL to retrieve image from - Must be a full URL, no quotation marks
+    Message: "Announcement 1" # Message to be sent to the entire server - Must be a string value - Useable Parameters: Rich Text <>
+  - URL: my.example.two.url # URL to retrieve image from - Must be a full URL, no quotation marks
+    Message: "Announcement 2" # Message to be sent to the entire server - Must be a string value - Useable Parameters: Rich Text <>
