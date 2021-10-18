@@ -1,4 +1,4 @@
-# Wild.JoinLeaveMessages
+# Wild.Announcer
 Unturned plugin to add auto-announcing messages through the OpenMod API
 
 ## How to Install
