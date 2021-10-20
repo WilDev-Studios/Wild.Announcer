@@ -16,7 +16,11 @@ Announcements:
     Message: "Announcement 2" # Message to be sent to the entire server - Must be a string value - Useable Parameters: Rich Text <>
 ```
 *Parameters*
-- Rich Text <>: To add color and text formatting support for in-game text - Must be configured with <> 
+- Rich Text <>: To add color and text formatting support for in-game text - Must be configured with <>
+
+## Planned Additions
+- Option for random announcements instead of going by list order
+- Option for disabling duplicate announcements from the random announcements option
 
 ## Contact Us
 ### [Discord](https://discord.gg/4Ggybyy87d)
