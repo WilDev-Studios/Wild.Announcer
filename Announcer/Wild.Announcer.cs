@@ -10,7 +10,7 @@ using System.Linq;
 using SDG.Unturned;
 using OpenMod.Core.Helpers;
 
-[assembly: PluginMetadata("Wild.Announcer", DisplayName = "Wild.Announcer", Website = "https://discord.gg/4Ggybyy87d")]
+[assembly: PluginMetadata("Wild.Announcer", DisplayName = "Wild.Announcer", Website = "https://discord.gg/4Ggybyy87d", Author = "WilDev Studios")]
 namespace Announcer
 {
     public class Announcer : OpenModUnturnedPlugin
@@ -67,23 +67,67 @@ namespace Announcer
             await UniTask.SwitchToMainThread();
             while (SendAnnouncements)
             {
+                // Gets necessary information from configuration
                 await Task.Delay(TimeSpan.FromSeconds(m_Configuration.GetSection("Interval").Get<int>()));
                 var announceMessages = m_Configuration.GetSection("Announcements").Get<List<AnnounceClass>>();
+                var RandomEnabled = m_Configuration.GetSection("Random-Enabled").Get<bool>();
+                var PreventDuplicatesEnabled = m_Configuration.GetSection("Prevent-Duplicates").Get<bool>();
 
-                if (MessageCount >= announceMessages.Count())
-                {
-                    MessageCount = 0;
+                int AnnouncementIndexCheck;
+
+                if (RandomEnabled != true)
+                { // Announcements in order
+                    // Checks if the message pattern needs to be reset
+                    if (MessageCount >= announceMessages.Count())
+                    {
+                        MessageCount = 0;
+                    }
+
+                    var selectedMessage = announceMessages[MessageCount];
+
+                    // Sends the selected message
+                    if (selectedMessage.Message != null)
+                    {
+                        ChatManager.serverSendMessage(selectedMessage.Message, UnityEngine.Color.green, null, null, EChatMode.GLOBAL, selectedMessage.URL, true);
+                    }
+
+                    MessageCount++;
                 }
-
-                var selectedMessage = announceMessages[MessageCount];
-
-                if (selectedMessage.Message != null)
+                else // Announcements at random
                 {
-                    ChatManager.serverSendMessage(selectedMessage.Message, UnityEngine.Color.green, null, null, EChatMode.GLOBAL, selectedMessage.URL, true);
-                }
+                    // Generates random number
+                    int RandomNumberNew = GenerateRandomNumberFunction(announceMessages);
 
-                MessageCount++;
+                    // Checks if announcement has already been sent prior
+                    if (PreventDuplicatesEnabled == true)
+                    {
+                        if (RandomNumberNew == AnnouncementIndexCheck)
+                        {
+                            RandomNumberNew = GenerateRandomNumberFunction(announceMessages);
+                        }
+                    }
+
+                    var SelectedMessage = announceMessages[RandomNumberNew];
+
+                    // Sends the selected message
+                    if (SelectedMessage != null)
+                    {
+                        ChatManager.serverSendMessage(SelectedMessage.Message, UnityEngine.Color.green, null, null, EChatMode.GLOBAL, SelectedMessage.URL, true);
+                        if (PreventDuplicatesEnabled == true)
+                        {
+                            AnnouncementIndexCheck = RandomNumberNew;
+                        }
+                    }
+                }
             }
+        }
+
+        private int GenerateRandomNumberFunction(List<AnnounceClass> announceMessages)
+        {
+            Random RandomNumber = new Random();
+            int GeneratedRandomNumber = RandomNumber.Next(0, announceMessages.Count());
+
+            return GeneratedRandomNumber;
         }
     }
 }
