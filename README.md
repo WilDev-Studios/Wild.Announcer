@@ -9,6 +9,9 @@ Make sure you are in-game and run this command:
 *Config.yaml*
 ```yaml
 Interval: 300 # Seconds between each announcement - Must be an int value
+Random-Enabled: true # If announcements should be random and not by order - Must be a boolean value
+Prevent-Duplicates: true # If random duplicate announcements should be prevented - Must be a boolean value
+
 Announcements:
   - URL: my.example.one.url # URL to retrieve image from - Must be a full URL, no quotation marks
     Message: "Announcement 1" # Message to be sent to the entire server - Must be a string value - Useable Parameters: Rich Text <>
