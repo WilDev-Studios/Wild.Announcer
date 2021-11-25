@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <PackageId>Wild.Announcer</PackageId>
-    <PackageDescription>Unturned plugin to add auto-announcing messages through the OpenMod API</PackageDescription>
-    <PackageAuthor>WilDev Studios</PackageAuthor>
+	  <PackageId>Wild.Announcer</PackageId>
+	  <PackageDescription>Unturned plugin to add auto-announcing messages through the OpenMod API</PackageDescription>
+	  <PackageAuthor>WilDev Studios</PackageAuthor>
     <TargetFramework>net461</TargetFramework>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>openmod openmod-plugin unturned</PackageTags>
-    <RootNamespace>Announcer</RootNamespace>
+    <RootNamespace>Wild.Announcer</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateNugetPackage>true</GenerateNugetPackage>
     <Product>Wild.Announcer</Product>
@@ -15,9 +15,9 @@
     <WarningsAsErrors>nullable</WarningsAsErrors>
     <NoWarn>$(NoWarn);NU1701;NU1702;CS0436</NoWarn>
     <LangVersion>9.0</LangVersion>
-    <Version>1.1.0</Version>
-    <InformationalVersion>1.1.0</InformationalVersion>
-    <PackageVersion>1.1.0</PackageVersion>
+    <Version>1.1.1</Version>
+    <InformationalVersion>1.1.1</InformationalVersion>
+    <PackageVersion>1.1.1</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
