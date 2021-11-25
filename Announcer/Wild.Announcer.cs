@@ -11,7 +11,7 @@ using SDG.Unturned;
 using OpenMod.Core.Helpers;
 
 [assembly: PluginMetadata("Wild.Announcer", DisplayName = "Wild.Announcer", Website = "https://discord.gg/4Ggybyy87d", Author = "WilDev Studios")]
-namespace Announcer
+namespace Wild.Announcer
 {
     public class Announcer : OpenModUnturnedPlugin
     {
@@ -73,7 +73,7 @@ namespace Announcer
                 var RandomEnabled = m_Configuration.GetSection("Random-Enabled").Get<bool>();
                 var PreventDuplicatesEnabled = m_Configuration.GetSection("Prevent-Duplicates").Get<bool>();
 
-                int AnnouncementIndexCheck;
+                var AnnouncementIndexCheck = -1;
 
                 if (RandomEnabled != true)
                 { // Announcements in order
