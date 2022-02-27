@@ -33,26 +33,28 @@ namespace Wild.Announcer
         protected override UniTask OnLoadAsync()
         {
             SendAnnouncements = true;
-            if (Level.isLoaded)
-            {
-                AsyncHelper.Schedule("Starting Announcements", () => Announcements().AsTask());
-            }
+
+            AsyncHelper.Schedule("Starting Announcements", () => Announcements().AsTask());
+
             m_Logger.LogInformation("+==========================================================+");
             m_Logger.LogInformation("| WILD.ANNOUNCER plugin has been loaded!                   |");
             m_Logger.LogInformation("| Made with <3 by WildKadeGaming @ WilDev Studios          |");
             m_Logger.LogInformation("| WilDev Discord: https://discord.com/invite/4Ggybyy87d    |");
             m_Logger.LogInformation("+==========================================================+");
+
             return UniTask.CompletedTask;
         }
 
         protected override UniTask OnUnloadAsync()
         {
             SendAnnouncements = false;
+
             m_Logger.LogInformation("+==========================================================+");
             m_Logger.LogInformation("| WILD.ANNOUNCER plugin has been unloaded!                 |");
             m_Logger.LogInformation("| Made with <3 by WildKadeGaming @ WilDev Studios          |");
             m_Logger.LogInformation("| WilDev Discord: https://discord.com/invite/4Ggybyy87d    |");
             m_Logger.LogInformation("+==========================================================+");
+
             return UniTask.CompletedTask;
         }
 
@@ -65,6 +67,7 @@ namespace Wild.Announcer
         private async UniTask Announcements()
         {
             await UniTask.SwitchToMainThread();
+
             while (SendAnnouncements)
             {
                 // Gets necessary information from configuration
@@ -101,9 +104,12 @@ namespace Wild.Announcer
                     // Checks if announcement has already been sent prior
                     if (PreventDuplicatesEnabled == true)
                     {
-                        if (RandomNumberNew == AnnouncementIndexCheck)
+                        if (AnnouncementIndexCheck == RandomNumberNew)
                         {
-                            RandomNumberNew = GenerateRandomNumberFunction(announceMessages);
+                            while (RandomNumberNew == GenerateRandomNumberFunction(announceMessages))
+                            {
+                                RandomNumberNew = GenerateRandomNumberFunction(announceMessages);
+                            }
                         }
                     }
 
@@ -124,7 +130,7 @@ namespace Wild.Announcer
 
         private int GenerateRandomNumberFunction(List<AnnounceClass> announceMessages)
         {
-            Random RandomNumber = new Random();
+            Random RandomNumber = new();
             int GeneratedRandomNumber = RandomNumber.Next(0, announceMessages.Count());
 
             return GeneratedRandomNumber;
